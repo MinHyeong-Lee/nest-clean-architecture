@@ -8,6 +8,8 @@ import {
   Headers,
   UseGuards,
   Inject,
+  LoggerService,
+  InternalServerErrorException
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserLoginDto } from './dto/user-login.dto';
@@ -16,21 +18,19 @@ import { UserInfo } from './UserInfo';
 import { UsersService } from './users.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from 'src/auth.guard';
-import { Logger as WinstonLogger } from 'winston';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(WINSTON_MODULE_NEST_PROVIDER)
-    private readonly logger: WinstonLogger,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: LoggerService,
     private usersService: UsersService,
     private readonly configService: ConfigService,
   ) {}
 
   @Post()
   async createUser(@Body() dto: CreateUserDto): Promise<void> {
-    this.printWinstonLog(dto);
+    this.printLoggerServiceLog(dto);
     const { name, email, password } = dto;
     await this.usersService.createUser(name, email, password);
   }
@@ -74,8 +74,15 @@ export class UsersController {
     return this.configService.get('DB_HOST');
   }
 
-  private printWinstonLog(dto) {
-    console.log(this.logger.name);
-    this.logger.error('error');
+  private printLoggerServiceLog(dto) {
+    try {
+      throw new InternalServerErrorException('test');
+    } catch (e) {
+      this.logger.error('error: ' + JSON.stringify(dto), e.stack);
+    }
+    this.logger.warn('warn: ' + JSON.stringify(dto));
+    this.logger.log('log: ' + JSON.stringify(dto));
+    this.logger.verbose('verbose: ' + JSON.stringify(dto));
+    this.logger.debug('debug: ' + JSON.stringify(dto));
   }
 }
