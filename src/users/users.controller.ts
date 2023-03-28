@@ -9,7 +9,7 @@ import {
   UseGuards,
   Inject,
   LoggerService,
-  InternalServerErrorException
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserLoginDto } from './dto/user-login.dto';
@@ -23,7 +23,8 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: LoggerService,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
     private usersService: UsersService,
     private readonly configService: ConfigService,
   ) {}
