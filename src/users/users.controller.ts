@@ -61,6 +61,11 @@ export class UsersController {
   //   return await this.usersService.findOne(id);
   // }
 
+  @Get('/db-host-from-config')
+  getDatabaseHostFromConfigService(): string {
+    return this.configService.get('DB_HOST');
+  }
+
   @UseGuards(AuthGuard)
   @Get('/:id')
   async getUserInfo(
@@ -68,11 +73,6 @@ export class UsersController {
     @Param('id') userId: string,
   ): Promise<UserInfo> {
     return this.usersService.getUserInfo(userId);
-  }
-
-  @Get('/db-host-from-config')
-  getDatabaseHostFromConfigService(): string {
-    return this.configService.get('DB_HOST');
   }
 
   private printLoggerServiceLog(dto) {
