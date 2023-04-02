@@ -23,6 +23,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { GetUserInfoQuery } from '../application/query/get-user-info.query';
 import { VerifyEmailCommand } from '../application/command/verify-email.command';
 import { LoginCommand } from '../application/command/login.command';
+import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
@@ -33,6 +34,8 @@ export class UsersController {
     private queryBus: QueryBus,
   ) {}
 
+  @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
+  @ApiCreatedResponse({ description: '유저 생성' })
   @Post()
   async createUser(@Body() dto: CreateUserDto): Promise<void> {
     const { name, email, password } = dto;
