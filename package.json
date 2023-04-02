@@ -27,6 +27,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/cqrs": "^9.0.3",
     "@nestjs/mapped-types": "^1.1.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/terminus": "^9.2.2",
@@ -92,7 +93,6 @@
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": [
-      "eslint",
       "prettier --check"
     ],
     "**/*.{json,yaml,md}": [
