@@ -27,6 +27,11 @@ export class UserFactory {
     return user;
   }
 
+  /**
+   * reconstitute ?
+   * 도메인 객체를 생성할 때 그 객체의 속성을 모두 알고 있는 경우,
+   * 해당 객체를 다시 구성한느 패턴이다.
+   */
   reconstitute(
     id: string,
     name: string,
