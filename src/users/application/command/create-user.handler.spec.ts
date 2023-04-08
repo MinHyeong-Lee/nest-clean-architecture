@@ -2,8 +2,8 @@ import * as uuid from 'uuid';
 import * as ulid from 'ulid';
 import { Test } from '@nestjs/testing';
 import { CreateUserHandler } from './create-user.handler';
-import { UserFactory } from 'src/users/domain/user.factory';
-import { UserRepository } from 'src/users/infra/db/repository/UserRepository';
+import { UserFactory } from '../../domain/user.factory';
+import { UserRepository } from '../../infra/db/repository/UserRepository';
 import { CreateUserCommand } from './create-user.command';
 import { UnprocessableEntityException } from '@nestjs/common';
 
@@ -71,13 +71,15 @@ describe('CreateUserHandler', () => {
         email,
         password,
         signupVerifyToken,
+        0,
       );
       expect(userFactory.create).toBeCalledWith(
         id,
         name,
         email,
-        signupVerifyToken,
         password,
+        signupVerifyToken,
+        0,
       );
     });
 

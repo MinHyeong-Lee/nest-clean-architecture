@@ -12,7 +12,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../infra/db/entity/user.entity';
 import { AuthService } from 'src/auth/auth.service';
-import { UserFactory } from 'src/users/domain/user.factory';
+import { UserFactory } from '../../domain/user.factory';
 import { IUserRepository } from 'src/users/domain/repository/iuser.repository';
 
 @Injectable()
